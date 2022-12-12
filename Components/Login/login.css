@@ -1,0 +1,96 @@
+.container{
+    border-radius: 8px;
+    border: 1px solid #dadce0;
+    display: flex;
+    flex-direction: column;
+    margin: 35px auto;
+    padding:50px;
+    width: 29vw;
+}
+body{
+    font-family: roboto,"Noto Sans Myanmar UI",arial,sans-serif;
+}
+.logoimg
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 27%;
+}
+.signin h1
+{
+    padding-bottom: 0;
+    padding-top: 13px;
+    color: #202124;
+    font-size: 24px;
+    font-family: "Google Sans","Noto Sans Myanmar UI",arial,sans-serif;
+    font-weight: 400;
+    line-height: 1.3333;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+
+}
+.signin span
+{
+    padding-bottom: 0;
+    padding-top: 13px;
+    color: #202124;
+    font-size: 18px;
+    font-family: "Google Sans","Noto Sans Myanmar UI",arial,sans-serif;
+    font-weight: 400;
+    line-height: 1.3333;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    text-align: center;
+
+}
+.formgroup input{
+    width: 100%;
+    border: 1px solid black;
+    height: 40px;
+    border-radius: 5px;
+    margin-bottom: 0;
+    margin-top: 7%;
+}
+.forget{
+    color: #1a73e8;
+    font-weight: 600;
+    letter-spacing: .25px;
+    margin-top: 2%;
+    font-family: roboto,"Noto Sans Myanmar UI",arial,sans-serif;
+}
+.forget a{
+    color: #1a73e8!important;
+}
+.extrasentence{
+    margin-top: 10%;
+    font-size: 15px;
+}
+.createaccount{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 12%;
+    color:#1a73e8;
+    font-weight: 600;
+}
+.createaccount a{
+       color:#1a73e8;
+}
+.createaccount button{
+    background-color: #1a73e8;
+    border: none;
+    color: white;
+    padding: 11px;
+    width: 75px;
+    font-size: 17px;
+    border-radius: 5px;
+}

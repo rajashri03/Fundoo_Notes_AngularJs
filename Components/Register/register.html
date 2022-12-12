@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="FundooApp">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="Components/Register/register.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="angularroute.js"></script>
+</head>
+<body>
+    <div class="signup"  ng-controller="fundooappCtrl">
+        <div class="inputdata">
+            <div class="logoimg">
+                <img src="../../Images/google.png" height="35px">
+            </div>
+            <div class="signin">
+                {{msg}}
+                <h1>Sign In</h1>
+                <span>Use Your Google Account</span>
+            </div>
+                <div class="names">
+                    <input type="text" ng-model="firstName" class="formcontrol" placeholder="Firstname">
+               
+                    <input type="text" ng-model="lastName" class="formcontrol" placeholder="Lastname">
+                </div>
+            <input type="text" ng-model="email" class="formcontrol" placeholder="Email">
+            <small class="text">You can use Letters,numbers and periods</small>
+               
+            <div class="names">
+                <input ng-model="password" type="text" class="formcontrol" placeholder="Password">
+           
+               
+            </div>
+             <small class="text">Use 8 or more characters with a mix of letters, numbers & symbols</small>
+            <div>
+           
+            </div>
+            <div class="createaccount">
+                <div><a href="#!login" style="text-decoration:none">Sign in Instead</a></div>
+                <div>
+                    <button ng-click="postdata(firstName,lastName,email,password)">Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="image">
+        <img height="63%"src="../Images/googledevice.jpg" alt="google"/>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,328 @@
+*{
+    margin:0px;
+    padding: 0px;
+}
+.keepimg
+{
+    height: 50px!important;
+}
+.header
+{
+    width: 100vw;
+    height: 10vh;
+    border-bottom: 1px solid grey;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+}
+.icons img
+{
+    height: 25px;
+}
+.icon_notes img{
+    height: 22px;
+}
+.icons
+{
+    display: flex;
+    min-width: 120px;
+    flex-direction: row;
+    padding: 5px;
+    align-items: center;
+    margin-left:10px;
+    font-family:monospace;
+    color:grey;
+    justify-content: space-around;
+}
+.search
+{
+    width: 60%;
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+    display:flex;
+    margin:7px 0px 7px 5%;
+    flex-direction: row;
+    background-color: #f1f3f4;
+}
+.search > input{
+    border:none;
+    width: 60%;
+    background-color: #f1f3f4;
+    margin:0px 5px 0px 15px;
+    padding: 5px 0px 5px 0px;
+    font-size: 17px;
+}
+.search > img{
+    margin:5px 5px 0px 15px;
+    padding: 5px 0px 5px 0px;
+}
+.profile
+{
+    background-color: blueviolet;
+    border-radius: 50%;
+    padding: 12px;
+    width: 15px;
+    color:white;
+}
+
+.notes{
+     border-radius: 5px;
+    height: auto;
+    margin-left: 20px;
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
+    padding:10px;
+    width: 240px;
+    border:1px solid rgba(219, 209, 209, 0.61);
+    
+}
+.icon_notes img{
+    display:none; 
+}
+.notes:hover .icon_notes img{
+    display:block; 
+}
+.notes:hover{
+    box-shadow:2px 2px 2px 2px rgba(219, 209, 209, 0.61);
+}
+.MuiDrawer-paperAnchorTop{
+    margin-top:40px;
+}
+
+
+@media only screen and (min-width : 320px) and (max-width : 480px) 
+{
+    .icons img 
+    {
+    height: 18px;
+    margin-right: 6px;
+    }
+    .search 
+    {
+        display:none;
+        width: 16%;
+    }
+    .icons
+    {
+        justify-content: space-around;
+        min-width: 1px;
+        gap: 9px;
+    }
+ }
+ @media only screen and (min-width : 481px) and (max-width : 768px) {
+    .search {
+        display:none;
+        width: 16%;
+    }
+    .icons{
+        min-width: 1px;
+        gap: 15px;
+    }   
+}
+ @media only screen and (min-width : 768px) and (max-width : 1024px) {
+    .search {
+        margin: 31px 0px 23px 5%;
+        display:none;
+    }
+    .icons{
+        min-width: 1px;
+        gap: 22px;
+    }  
+ }
+ @media only screen and (max-width : 1200px) and (min-width : 1024px) {
+ 
+ }
+
+ .note>input{
+    border:none;
+    width: 100%;
+}
+.take{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: flex-end;
+}
+.takenoteone
+{
+    box-shadow: 1px 1px 1px 1px #cbcbcb;
+    border: none;
+    margin: 3%;
+    width: 45%;
+    padding: 15px;
+    position: relative;
+    margin-left: 32%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    border-radius: 5px;
+    margin-bottom: 0px;
+    
+}
+@media only screen and (min-width : 320px) and (max-width : 480px) {
+    .takenoteone {
+         width: 69%;
+        margin-left: 24%;
+        padding: 4px 2px 4px 12px;
+        gap: 15px;
+ }
+}
+@media only screen and (min-width : 481px) and (max-width : 768px) {
+    .takenoteone {
+        width: 69%;
+        gap: 15px;
+       margin-left: 24%;
+       padding: 4px 2px 4px 12px;
+} }
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+    .takenoteone {
+        width: 69%;
+        gap: 15px;
+       margin-left: 24%;
+       padding: 4px 2px 4px 12px;
+}  
+ }
+ @media only screen and (min-width : 280) {
+    body{
+        overflow: scroll;
+    }
+ }
+
+ .notesfooter, .notesicons img
+{
+    height: 22px;
+}
+.note>input{
+    border:none;
+    width: 100%;
+    height: 50px;
+}
+.takenotetwo
+{
+    box-shadow: 1px 1px 1px 1px #cbcbcb;
+    border: none;
+    margin: 3%;
+    width: 45%;
+    padding: 15px;
+    position: relative;
+    margin-left: 32%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    margin-bottom: 0px;
+}
+.takenotetwo .note{
+    border:none;
+    color:black;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 0px;
+}
+.take{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: flex-end;
+    margin: 14px;
+}
+.notesbody
+{
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+.notesbody>.note{
+    border:none;
+    color:black;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+    margin-left: 0px;
+    margin-bottom: 15px;
+}
+
+.notesfooter
+{
+    margin-left:0px;
+    display: flex;
+    font-family:monospace;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.notesicons
+{
+    padding: 5px;
+    gap:10px;
+    display: flex;
+    
+    flex-direction: row;
+    justify-content: space-between;
+    font-family:monospace;
+    color:grey;
+    margin-left: 0px;
+}
+@media only screen and (min-width : 320px) and (max-width : 480px)
+{
+    .takenotetwo {
+    width: 66%;
+    margin-left: 24%;
+    }
+}
+@media only screen and (min-width : 481px) and (max-width : 768px)
+{
+    .takenotetwo {
+       width: 69%;
+       margin-left: 24%;
+    }
+}
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+    .takenotetwo {
+        width: 69%;
+        margin-left: 24%;
+     }
+ }
+ *{
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    }
+    body{
+    box-sizing: border-box;
+    }
+    .sidebar{
+    position: fixed;
+    width: 23%;
+    height: 100%;
+    top: 10%;
+    left: 0;
+    z-index: 1; }
+    .hidden{
+        display:none;
+    }
+    .sidebar h1{
+    text-align: center;
+    font-size: 20px;
+    text-transform: uppercase;
+    padding: 15px;
+    background: grey;
+    }
+    .active{
+
+        background-color: antiquewhite;
+        border-radius: 0px 50px 50px 0px;
+    }
+    .sidebar ul li{
+    margin: 25px 0;
+    padding: 20px;
+    }
+    
+    .sidebar ul li a{
+    color: black;
+    padding: 0 30px;
+    }
+    
+    .content{
+    margin-left: 210px ;
+    }
