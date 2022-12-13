@@ -1,10 +1,7 @@
 var app=angular.module("FundooApp",['ngRoute','ngStorage']);
 
-app.config(["$routeProvider,$httpProvider",function($routeProvider,$httpProvider){
-    $httpProvider.defaults.useXDomain = true;
-
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-
+app.config(["$routeProvider",function($routeProvider){
+    
 $routeProvider.
 when("/login",{
     templateUrl:"Components/Login/login.html"
@@ -19,7 +16,8 @@ otherwise({
 redirectTo:"/login"
 });
 }]);
-app.controller("fundooappCtrl",function($scope,$http,$localStorage,$location){
+
+app.controller("fundooappCtrl",function($scope,$http,$window,$location,$localStorage){
       //-----Takenote one and two
       var note=this;
       note.toggle=false;
@@ -27,19 +25,28 @@ app.controller("fundooappCtrl",function($scope,$http,$localStorage,$location){
       $scope.toggle1 = function() {
         $scope.showButtons = [1];
     };
+
     $scope.postNote=function(title,note){
+        var token=$window.localStorage.getItem("token");
+       // console.log(token);
+        
+        const HeaderConfig={
+            headers:{
+                Authorization:"Bearer " + localStorage.getItem("token")
+            }
+        }
         var data={
           title: title,
           note: note,
+          userid:""
         }
         //call the service
-        $http.post("https://localhost:44365/api/Notes/Add",JSON.stringify(data))
+        
+        $http.post("https://localhost:44365/api/Notes/Add",JSON.stringify(data),HeaderConfig)
         .then(function(response){
             console.log(response);
-    
             if(response.data){
                 $scope.msg="Post Data Submitted";
-              
                 $scope.title=response.data.title;
                 $scope.note=response.data.note;
             }
@@ -47,6 +54,10 @@ app.controller("fundooappCtrl",function($scope,$http,$localStorage,$location){
             console.log(error)
         })
     };
+
+
+
+
    //Login js-------------------------------------------------
     $scope.login=function(email, password){
         var data={
@@ -59,7 +70,8 @@ app.controller("fundooappCtrl",function($scope,$http,$localStorage,$location){
             console.log(response);
 
             if(response.data){
-                $localStorage.message=response.data.data;
+                $window.localStorage.setItem('token', response.data.data);
+                //$localStorage.message=response.data.data;
                 console.log($localStorage.message);
                 $location.path('/Dashboard');
                 $scope.email=response.data.email;
@@ -69,6 +81,8 @@ app.controller("fundooappCtrl",function($scope,$http,$localStorage,$location){
             console.log(error)
         })
     };
+
+
 
      //Register js-------------------------------------------------
     $scope.postdata=function(firstName,lastName,email, password){
@@ -93,8 +107,11 @@ app.controller("fundooappCtrl",function($scope,$http,$localStorage,$location){
             console.log(error)
         })
     };
-
-  
 })
 
 //$routeprivder-services
+
+
+
+
+
