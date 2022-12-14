@@ -1,14 +1,5 @@
-<html ng-app="FundooApp">
-<head>
-<link href="Components/Dashboard/dashboard.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
-  <script src="app.js"></script>
-</head>
-<body>
-
-  <!-- Use a custom component to render a list of phones -->
-  <div  ng-controller="fundooappCtrl as note">
+<!-- Use a custom component to render a list of phones -->
+  <div  >
     <div class='header'> <div class='icons'>
        <img src='../../Images/menu.png'/>
         <img src='../../Images/keep.png' class='keepimg'/>
@@ -29,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div  ng-controller="fundooappCtrl as notes">
     <div class="takenoteone" ng-show="showButtons.includes(0)" ng-click="toggle1()" >
       <div class="note">
           <input type="text" placeholder="Take a note..."/>
@@ -85,10 +76,8 @@
       <i class="fas fa-question-circle"></i>
       <span>Trash</span>
       </a></li>
-      
-      </ul>
-      </div>
+    </ul>
+</div>
      
 </div>
-</body>
-</html>
+<note-list></note-list>

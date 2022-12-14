@@ -1,0 +1,51 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../CreateNote/note.css" >
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+
+    <div>
+    <div class="takenoteone" ng-show="showButtons.includes(0)" ng-click="toggle1()" >
+      <div class="note">
+          <input type="text" placeholder="Take a note..."/>
+      </div>
+      <div class="take">
+          <img src="../../../Images/llist.png" height="20px"/>
+          <img src="../../../Images/draw.png" height="20px"/>
+          <img src="../../../Images/img.png" height="20px"/>
+      </div>
+  </div>
+  <div class="takenotetwo" ng-show="showButtons.includes(1)">
+    <div class="notesbody">
+        <div class="note">
+            <input type="text" placeholder="Title" ng-model="title"/>
+        </div>
+        <div class="take">
+            <img src="../../../Images/pin.png" height="20px" />
+        </div>
+    </div>
+    <div class="notesbody">
+        <div class="note">
+            <input type="text" ng-model="note" placeholder="Take a note..." >
+        </div>
+    </div>
+    <div class="notesfooter">
+        <div class="notesicons">
+           
+            <img src="../../../Images/img.jpg"/>
+            <img src="../../../Images/archive.png" />
+            <img src="../../../Images/more.png"/>
+        </div>
+        <div class="close" ng-click="postNote(title,note)">
+            close
+        </div>
+    </div>
+  </div>
+  
+     
+</div>
+</body>
+</html>

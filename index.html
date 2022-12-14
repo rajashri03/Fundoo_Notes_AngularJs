@@ -5,15 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FundooNotes</title>
-    <link href="Components/Login/login.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="angularroute.js"></script>
     <script src="app.js"></script>
-    <script src="Components/ngStorage.js"></script>
+    <script src="Controllers/addnote.js"></script>
+    <script src="Controllers/login.js"></script>
+    <script src="Controllers/register.js"></script>
+    <script src="ngStorage.js"></script>
+    <link rel="stylesheet" href="CSS/dashboard.css">
+    <link rel="stylesheet" href="CSS/login.css">
+    <link rel="stylesheet" href="CSS/register.css">
 </head>
-<body ng-controller="fundooappCtrl">
-  
-    <div ng-view>
+<body>
+     <div ng-view>
 
     </div>
 </body>

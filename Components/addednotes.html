@@ -1,0 +1,25 @@
+<div ng-controller="fundooappCtrl" ng-init="displayData()">
+    <div class="addednotes"  ng-repeat="ss in somearray" >
+       <div class="notes">
+         
+             <div class="notetitle" >
+                 <h5>{{ss.title}}</h5>
+                 <div class="noteimg">
+                      <img src="../../Images/pin.png"  height="22px" id={notes.noteID} onClick={pinnotes}/>
+                 </div>
+                 
+             </div>
+             <div>
+                 <div>{{ss.note}}</div>
+                 <div class="icon_notes">
+                     <SimplePopper action="update" note={notes.noteID} listentocolorpopper={listentocolorpopper} takeColor={takeColor}/>
+                     <img src="../../Images/archive.png" />
+                     <img src="../../Images/delete.png"  id={notes.noteID} onClick={trashnotes}/>
+                     <img src="../../Images/delete.png"  id={notes.noteID} onClick={deletenotes}/>
+                     <img src="../../Images/more.png" }/>
+                     
+                 </div>
+             </div>
+         </div>
+         
+    </div></div>
