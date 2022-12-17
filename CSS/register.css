@@ -14,7 +14,7 @@
 {
     width: 27%;
 }
-.signin h1
+/* .signin h1
 {
     padding-bottom: 0;
     color: #202124;
@@ -22,7 +22,7 @@
     font-family: "Google Sans","Noto Sans Myanmar UI",arial,sans-serif;
     font-weight: 400;
 
-}
+} */
 .createaccount{
     display: flex;
     flex-direction: row;

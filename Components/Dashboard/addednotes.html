@@ -1,0 +1,138 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<take-note></take-note>
+
+<div style="margin-left: 28%;margin-top: 5%;"><small>PINNED</small></div>
+<div ng-controller="fundooappCtrl" ng-init="displayData()" >
+   
+    <div class="addednotes row">
+        <div class="notes col-md-3"  ng-repeat="ss in somearray" ng-if="ss.isPin==true">
+         <div >
+            <a href="javascript:void(0);" ng-click="EditModal(ss)"> 
+               edit
+            </a>
+              <div class="notetitle" >
+                  <h5>{{ss.title}}</h5>
+                  <div class="noteimg">
+                    <i class="fa fa-thumb-tack" aria-hidden="true" ng-click="pinData(ss.noteID)"   height="22px"></i>
+
+                  </div>
+              </div>
+              <div>
+                  <div>{{ss.note}}</div>
+                  <div class="lastDiv">
+                  <div class="allIcons">
+                     <i class="fa fa-bell" aria-hidden="true"></i>
+                     <i class="fa fa-user-plus" aria-hidden="true"></i>
+                     <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                     <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                     <i class="fa fa-archive" aria-hidden="true" ng-click="archivedata(ss.noteID)"></i>
+                     <i class="fa fa-trash-o" ng-click="Trashdata(ss.noteID)"></i>
+                   
+                      <!-- <img src="../../Images/delete.png" ng-click="Trashdata(ss.noteID)"> -->
+                      <!-- <img src="../../Images/more.png" >
+                       -->
+                  </div>
+                 </div>
+              </div>
+          </div>
+         </div>
+          
+     </div>
+     <br><br>
+     <div class="addednotes row">
+        <div class="notes col-md-3"   ng-repeat="ss in somearray" ng-if="ss.isArchive==false&&ss.isTrash==false&&ss.isPin==false">
+        <div >
+             <div class="notetitle" >
+                 <h5>{{ss.title}}</h5>
+                 <div class="noteimg">
+                      <img src="../../Images/pin.png" ng-click="pinData(ss.noteID)"   height="22px" />
+                 </div>
+             </div>
+             <div>
+                 <div>{{ss.note}}</div>
+                 <div class="lastDiv">
+                 <div class="allIcons">
+                    <i class="fa fa-bell" aria-hidden="true"></i>
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                    <i class="fa fa-archive" aria-hidden="true" ng-click="archivedata(ss.noteID)"></i>
+                    <i class="fa fa-trash-o" ng-click="Trashdata(ss.noteID)"></i>
+                     <!-- <img src="../../Images/delete.png" ng-click="Trashdata(ss.noteID)"> -->
+                     <!-- <img src="../../Images/more.png" >
+                      -->
+                 </div>
+                </div>
+             </div>
+         </div>
+        </div>
+         
+    </div>
+</div>
+
+
+
+
+  
+<!-- Form modal -->
+<div id="form_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title"><i class="icon-paragraph-justify2"></i>
+          {{form_name}}</h4>
+        </div>
+        <!-- Form inside modal -->
+        <form  method="post" ng-submit="UserAddUpdate(users_form);" id="cat_form">
+          <div class="modal-body with-padding">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-12">
+                  <label>Name :</label>
+                   <input type="text" name="name" ng-model="users_form.name" 
+						id="name" required="required" class="form-control">
+                </div>
+              </div>
+            </div>            
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-12">
+                  <label>Email :</label>
+                   <input type="email" name="email" ng-model="users_form.email" 
+						id="email" required="required"  class="form-control email">
+                </div>
+              </div>
+            </div>
+			<div class="form-group">
+              <div class="row">
+                <div class="col-sm-12">
+                  <label>Position :</label>
+                   <input type="text" name="position" ng-model="users_form.position" 
+						id="position" required="required"  class="form-control">
+                </div>
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <label>Birthday :</label>
+                   <input type="date" placeholder="yyyy-MM-dd" id="dob" 
+							 ng-model="users_form.dob" 
+					class="form-control" required="required"  name="dob">
+                </div>
+              </div>
+            </div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+			  <button type="submit" name="form_data" class="btn btn-primary">Submit</button>
+			</div>
+        </form>
+      </div>
+    </div>
+  </div>
+<!-- /form modal -->     
+</div>
+</body>
+</html>
+

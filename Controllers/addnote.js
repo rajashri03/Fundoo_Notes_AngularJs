@@ -1,17 +1,119 @@
-app.
-component('noteList', {  // This name is what AngularJS uses to match to the `<phone-list>` element.
-  templateUrl: "Components/addednotes.html",
+app.component('sideBar', {  
+  templateUrl: "Components/Dashboard/sidebar.html",
+});
+
+
+app.component('headerList', {  
+  templateUrl: "Components/Dashboard/header.html",
+});
+
+
+app.component('takeNote', {  
+  templateUrl: "Components/Dashboard/takeNoteOneTwo.html",
+});
+
+app.component('noteList', {  
+  templateUrl: "Components/Dashboard/addednotes.html",
   }).controller("fundooappCtrl",function($scope,$http){
     const HeaderConfig={
         headers:{
             Authorization:"Bearer " + localStorage.getItem("token")
         }
     }
+
+    
+    $scope.EditModal = function(user) {
+      $scope.form_name = 'Edit User Information';
+  var edit_form = {};
+  angular.copy(user, edit_form);
+  $scope.users_form = edit_form;
+  $scope.users_form.dob = new Date($scope.users_form.dob);		
+      $('#form_modal').modal('show');
+  };
+    
+//For pin
+$scope.pinData=function(noteID){
+    var datanote={
+        noteID: noteID
+      }
+      $scope.noteID=noteID;
+      console.log( $scope.noteID);
+    $http.put(`https://localhost:44365/api/Notes/Pin?noteid=${noteID}`,null,HeaderConfig)
+    .then(function(response){
+      //$scope.somearray=response.data;
+        console.log(response); 
+       //console.log($scope.somearray.data);
+       window.location.reload();
+    },function(error){
+        console.log(error)
+    })
+  };
+
+      
+//For Archive
+$scope.archivedata=function(noteID){
+    var datanote={
+        noteID: noteID
+      }
+      $scope.noteID=noteID;
+      console.log( $scope.noteID);
+    $http.put(`https://localhost:44365/api/Notes/Archive?noteid=${noteID}`,null,HeaderConfig)
+    .then(function(response){
+      //$scope.somearray=response.data;
+        console.log(response); 
+       //console.log($scope.somearray.data);
+       window.location.reload();  
+    },function(error){
+        console.log(error)
+    })
+  };
+
+      
+//For Delete
+$scope.deleteData=function(noteID){
+    var datanote={
+        noteID: noteID
+      }
+      $scope.noteID=noteID;
+      console.log( $scope.noteID);
+    $http.delete(`https://localhost:44365/api/Notes/Remove?noteid=${noteID}`,HeaderConfig)
+    .then(function(response){
+      //$scope.somearray=response.data;
+        console.log(response); 
+       //console.log($scope.somearray.data);
+       window.location.reload(); 
+    },function(error){
+        console.log(error)
+    })
+  };
+
+      
+//For Trash
+$scope.Trashdata=function(noteID){
+    var datanote={
+        noteID: noteID
+      }
+      $scope.noteID=noteID;
+      console.log( $scope.noteID);
+    $http.put(`https://localhost:44365/api/Notes/Trash?noteid=${noteID}`,null,HeaderConfig)
+    .then(function(response){
+      //$scope.somearray=response.data;
+        console.log(response); 
+       //console.log($scope.somearray.data);
+       window.location.reload();
+    },function(error){
+        console.log(error)
+    })
+  };
+
+
+
 //---TO display Note
     $scope.displayData=function(){
         $http.get("https://localhost:44365/api/Notes/ByUser",HeaderConfig)
         .then(function(response){
           $scope.somearray=response.data;
+          console.log($scope.notid);
             console.log(response); 
            //console.log($scope.somearray.data);
             
@@ -19,7 +121,6 @@ component('noteList', {  // This name is what AngularJS uses to match to the `<p
             console.log(error)
         })
       };
-
 
 
     //-----Takenote one and two
@@ -45,6 +146,7 @@ component('noteList', {  // This name is what AngularJS uses to match to the `<p
       .then(function(response){
           console.log(response);
           if(response.data){
+            window.location.reload();
               $scope.msg="Post Data Submitted";
               $scope.title=response.data.title;
               $scope.note=response.data.note;

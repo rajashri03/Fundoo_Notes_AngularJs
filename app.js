@@ -13,6 +13,15 @@ when("/register",{
 }).
 when("/Dashboard",{
     templateUrl:"Components/dashboard.html"
+})
+.when("/Notes",{
+        templateUrl:"Components/dashboard.html"
+}).
+when("/Archive",{
+        templateUrl:"Components/Dashboard/ArchiveNotes.html"        
+}).
+when("/Trash",{
+    templateUrl:"Components/Dashboard/Trash.html"
 }).
 otherwise({
 redirectTo:"/login"
