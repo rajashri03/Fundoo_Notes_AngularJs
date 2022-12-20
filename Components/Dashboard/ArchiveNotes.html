@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
 <div>
     <header-list></header-list>
 </div>
@@ -8,30 +8,40 @@
 <div ng-controller="fundooappCtrl" ng-init="displayData()" >
     <div class="addednotes row" style="margin-top: 7%;">
         <div class="notes col-md-3"   ng-repeat="ss in somearray" ng-if="ss.isArchive==true">
-        <div >
-             <div class="notetitle" >
-                 <h5>{{ss.title}}</h5>
-                 <div class="noteimg">
-                      <img src="../../Images/pin.png" ng-click="pinData(ss.noteID)"   height="22px" />
-                 </div>
-             </div>
-             <div>
-                 <div>{{ss.note}}</div>
-                 <div class="lastDiv">
-                 <div class="allIcons">
-                    <i class="fa fa-bell" aria-hidden="true"></i>
-                    <i class="fa fa-user-plus" aria-hidden="true"></i>
-                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
-                    <i class="fa fa-archive" aria-hidden="true" ng-click="archivedata(ss.noteID)"></i>
-                    <i class="fa fa-trash-o" ng-click="Trashdata(ss.noteID)"></i>
-                     <!-- <img src="../../Images/delete.png" ng-click="Trashdata(ss.noteID)"> -->
-                     <!-- <img src="../../Images/more.png" >
-                      -->
-                 </div>
+            <div>
+                <div ng-click="openModal(ss.noteID,ss.title,ss.note,ss.color,ss.isArchive,ss.isPin)">
+                    <div class="notetitle" >
+                        <h5>{{ss.title}}</h5>
+                        <div class="noteimg">
+                          <i class="fa fa-thumb-tack" aria-hidden="true" ng-click="pinData(ss.noteID)"   height="22px"></i>
+      
+                        </div>
+                    </div>
+                    <div>{{ss.note}}</div>
                 </div>
-             </div>
-         </div>
+                <div ng-repeat="cc in collabarray">
+                     <div class="collab" >
+                        <p>{{cc.collabEmail}}</p> 
+                        <span class="tooltip-text" id="bottom">{{cc.collabEmail}}</span>
+                    </div>
+                </div>
+                <div>
+                  <div class="lastDiv">
+                        <div class="allIcons">
+                           <i class="fa fa-bell" aria-hidden="true"></i>
+                           <i class="fa fa-user-plus" aria-hidden="true" ng-click="openCollabModal(ss.noteID)"></i>
+                           <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                           <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                           <i class="fa fa-archive" aria-hidden="true" ng-click="archivedata(ss.noteID)"></i>
+                           <i class="fa fa-trash-o" ng-click="Trashdata(ss.noteID)"></i>
+                         
+                            <!-- <img src="../../Images/delete.png" ng-click="Trashdata(ss.noteID)"> -->
+                            <!-- <img src="../../Images/more.png" >
+                             -->
+                        </div>
+                    </div>
+                  </div>
+                </div>
         </div>
          
     </div>

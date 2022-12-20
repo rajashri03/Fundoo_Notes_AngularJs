@@ -16,16 +16,59 @@ app.component('noteList', {
   templateUrl: "Components/Dashboard/addednotes.html",
   });
   
-  app.controller("fundooappCtrl",function($scope,$http,$uibModal){
+app.controller("fundooappCtrl",function($scope,$http,$uibModal,){
     const HeaderConfig={
         headers:{
             Authorization:"Bearer " + localStorage.getItem("token")
         }
     }
 
+    //Collaborator popup  
+ $scope.openCollabModal = function(noteid){
+  user={
+    noteid:noteid
+  }
+  $scope.modalInstance = $uibModal.open({
+  ariaLabelledBy: 'modal-title',
+  ariaDescribedBy: 'modal-body',
+  templateUrl: 'collabwindow.html',
+  controller :'CollabController',
+  controllerAs: '$ctrl',
+  size: 'md',
+  resolve: {
+  user:function(){
+    return user;
+  }
+  }
+  });
+ 
+  }
+  
+
+  //Collaborator
+  $scope.CollabNote=function(collabEmail,noteid){
+     
+    var data1={
+      collabEmail:collabEmail,
+      noteid:noteid
+    }
+    //call the service
     
+    $http.post(`https://localhost:44365/api/Collab/Add?noteid=${noteid}&email=${collabEmail}`,JSON.stringify(data1),HeaderConfig)
+    .then(function(response){
+        console.log(response);
+        if(response.data1){
+          window.location.reload();
+            $scope.msg="Post Data Submitted";
+            $scope.collabEmail=response.data1.collabEmail;
+            $scope.noteid=response.data1.noteid;
+        }
+    },function(error){
+        console.log(error)
+    })
+};
     
-    
+  //Update popup  
  $scope.openModal = function(noteID,title,note,color,isArchive,isPin){
   user={
     noteID:noteID,
@@ -50,6 +93,40 @@ app.component('noteList', {
   });
  
   }
+  
+
+  //Update note
+  $scope.UpdateNote=function(noteID,title,note,color,isArchive,isPin){
+     
+    var data1={
+      noteID:noteID,
+      title: title,
+      note: note,
+      color:color,
+      isArchive:isArchive,
+      isPin:isPin
+    }
+    //call the service
+    
+    $http.put(`https://localhost:44365/api/Notes/Update?noteid=${noteID}`,JSON.stringify(data1),HeaderConfig)
+    .then(function(response){
+        console.log(response);
+        if(response.data1){
+          window.location.reload();
+            $scope.msg="Post Data Submitted";
+            $scope.title=response.data1.title;
+            $scope.note=response.data1.note;
+            $scope.color=response.data1.color;
+            $scope.image= response.data1.image;
+            $scope.isArchive= response.data1.isArchive;
+            $scope.isPin= response.data1.isPin;
+
+            $uibModalInstance.close('save');
+        }
+    },function(error){
+        console.log(error)
+    })
+};
   
 //For pin
 $scope.pinData=function(noteID){
@@ -126,20 +203,40 @@ $scope.Trashdata=function(noteID){
     })
   };
 
-
+//Display Collab
+// $scope.displayCollabData=function(){
+//   var data={
+//     noteid:noteid
+//   }
+// };
 
 //---TO display Note
     $scope.displayData=function(){
+      var data={
+        note: note
+      }
         $http.get("https://localhost:44365/api/Notes/ByUser",HeaderConfig)
         .then(function(response){
           $scope.somearray=response.data;
-          console.log($scope.notid);
+
             console.log(response); 
-           //console.log($scope.somearray.data);
+           console.log("noteid"+response.data.note);
             
         },function(error){
             console.log(error)
         })
+
+
+        
+  $http.get(`https://localhost:44365/api/Collab/ByNoteId?noteid=26`,HeaderConfig)
+  .then(function(response){
+    $scope.collabarray=response.data;
+      console.log(response); 
+     console.log("hiii");
+      
+  },function(error){
+      console.log(error)
+  })
       };
 
 
@@ -179,43 +276,13 @@ $scope.Trashdata=function(noteID){
   };
 
 
-  //Update note
-  $scope.UpdateNote=function(noteID,title,note,color,isArchive,isPin){
-     
-    var data1={
-      noteID:noteID,
-      title: title,
-      note: note,
-      color:color,
-      isArchive:isArchive,
-      isPin:isPin
-    }
-    //call the service
-    
-    $http.put(`https://localhost:44365/api/Notes/Update?noteid=${noteID}`,JSON.stringify(data1),HeaderConfig)
-    .then(function(response){
-        console.log(response);
-        if(response.data1){
-          window.location.reload();
-            $scope.msg="Post Data Submitted";
-            $scope.title=response.data1.title;
-            $scope.note=response.data1.note;
-            $scope.color=response.data1.color;
-            $scope.image= response.data1.image;
-            $scope.isArchive= response.data1.isArchive;
-            $scope.isPin= response.data1.isPin;
-
-        }
-    },function(error){
-        console.log(error)
-    })
-};
-
   
   
 })
 
-app.controller("ModelHandlerController",function($scope,$uibModalInstance,$http){
+
+//Update popup
+app.controller("ModelHandlerController",function($scope,$uibModalInstance){
  $scope.title=user.title;
  $scope.note=user.note;
  $scope.noteID=user.noteID;
@@ -232,3 +299,21 @@ app.controller("ModelHandlerController",function($scope,$uibModalInstance,$http)
   }
   
  });
+
+
+ 
+//Collab popup
+app.controller("CollabController",function($scope,$uibModalInstance,$http){
+  $scope.collabEmail=user.collabEmail;
+  $scope.noteid=user.noteid;
+   $scope.cancelModal = function(){
+   console.log("cancelmodal");
+   $uibModalInstance.dismiss('close');
+   }
+   $scope.ok = function(){
+   
+   $uibModalInstance.close('save');
+   
+   }
+   
+  });

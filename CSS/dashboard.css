@@ -212,6 +212,8 @@ li{
     border:none;
     width: 100%;
     height: 50px;
+    font-weight: 100;
+    font-size: 18px;
 }
 .takenotetwo
 {
@@ -470,7 +472,47 @@ li{
   }
 
 
+/* .collab p::first-letter {
+    
+    color: #8A2BE2;
+    display: block !important;
+} */
 
+.collab {
+    font-size: 0;
+    display: flex;
+    border-radius: 50%;
+    border: 1px solid black;
+    width: 26px;
+    height: 29px;
+    /* padding: 2px; */
+    /* margin: -2px; */
+    padding-left: 7px;
 
+  }
+  
+  .collab p:first-letter {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tooltip-text {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    width: auto;
+    color: white;
+    font-size: 12px;
+    background-color: #192733;
+    border-radius: 10px;
+    padding: 10px 15px 10px 15px;
+  }
+  
+  .collab:hover .tooltip-text {
+    visibility: visible;
+  }
+ 
+  
 
   
