@@ -14,7 +14,9 @@ app.component('takeNote', {
 
 app.component('noteList', {  
   templateUrl: "Components/Dashboard/addednotes.html",
-  }).controller("fundooappCtrl",function($scope,$http){
+  });
+  
+  app.controller("fundooappCtrl",function($scope,$http,$uibModal){
     const HeaderConfig={
         headers:{
             Authorization:"Bearer " + localStorage.getItem("token")
@@ -22,15 +24,33 @@ app.component('noteList', {
     }
 
     
-    $scope.EditModal = function(user) {
-      $scope.form_name = 'Edit User Information';
-  var edit_form = {};
-  angular.copy(user, edit_form);
-  $scope.users_form = edit_form;
-  $scope.users_form.dob = new Date($scope.users_form.dob);		
-      $('#form_modal').modal('show');
-  };
     
+    
+ $scope.openModal = function(noteID,title,note,color,isArchive,isPin){
+  user={
+    noteID:noteID,
+      title:title,
+      note:note,
+      color:color,
+      isArchive:isArchive,
+      isPin:isPin
+  }
+  $scope.modalInstance = $uibModal.open({
+  ariaLabelledBy: 'modal-title',
+  ariaDescribedBy: 'modal-body',
+  templateUrl: 'window.html',
+  controller :'ModelHandlerController',
+  controllerAs: '$ctrl',
+  size: 'md',
+  resolve: {
+  user:function(){
+    return user;
+  }
+  }
+  });
+ 
+  }
+  
 //For pin
 $scope.pinData=function(noteID){
     var datanote={
@@ -158,6 +178,57 @@ $scope.Trashdata=function(noteID){
       })
   };
 
+
+  //Update note
+  $scope.UpdateNote=function(noteID,title,note,color,isArchive,isPin){
+     
+    var data1={
+      noteID:noteID,
+      title: title,
+      note: note,
+      color:color,
+      isArchive:isArchive,
+      isPin:isPin
+    }
+    //call the service
+    
+    $http.put(`https://localhost:44365/api/Notes/Update?noteid=${noteID}`,JSON.stringify(data1),HeaderConfig)
+    .then(function(response){
+        console.log(response);
+        if(response.data1){
+          window.location.reload();
+            $scope.msg="Post Data Submitted";
+            $scope.title=response.data1.title;
+            $scope.note=response.data1.note;
+            $scope.color=response.data1.color;
+            $scope.image= response.data1.image;
+            $scope.isArchive= response.data1.isArchive;
+            $scope.isPin= response.data1.isPin;
+
+        }
+    },function(error){
+        console.log(error)
+    })
+};
+
   
   
 })
+
+app.controller("ModelHandlerController",function($scope,$uibModalInstance,$http){
+ $scope.title=user.title;
+ $scope.note=user.note;
+ $scope.noteID=user.noteID;
+ $scope.color=user.color;
+ $scope.isArchive=user.isArchive;
+ $scope.isPin=user.isPin;
+  $scope.cancelModal = function(){
+  console.log("cancelmodal");
+  $uibModalInstance.dismiss('close');
+  }
+  $scope.ok = function(){
+  $uibModalInstance.close('save');
+  
+  }
+  
+ });
