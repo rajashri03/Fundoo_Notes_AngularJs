@@ -17,14 +17,14 @@
 {
     width: 100vw;
     height: 10vh;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid #8080803d;
     flex-direction: row;
     display: flex;
     justify-content: space-around;
 }
 .icons img
 {
-    height: 25px;
+    height: 20px;
 }
 .icon_notes img{
     height: 22px;
@@ -44,6 +44,7 @@ li{
     min-width: 120px;
     flex-direction: row;
     padding: 5px;
+    gap: 18px;
     align-items: center;
     margin-left:10px;
     font-family:monospace;
@@ -52,7 +53,7 @@ li{
 }
 .search
 {
-    width: 60%;
+    width: 50%;
     border: 1px solid transparent;
     padding: 5px;
     border-radius: 5px;
@@ -70,8 +71,8 @@ li{
     font-size: 17px;
 }
 .search > img{
-    margin:5px 5px 0px 15px;
-    padding: 5px 0px 5px 0px;
+   margin: 9px;
+    /* padding: 5px 0px 5px 0px;*/
 }
 .profile
 {
@@ -80,6 +81,8 @@ li{
     padding: 12px;
     width: 15px;
     color:white;
+    width: 3vw;
+    text-align: center;
 }
 
 .notes{
@@ -165,7 +168,7 @@ li{
     border: none;
     margin: 3%;
     width: 45%;
-    padding: 15px;
+    padding-left: 15px;
     position: relative;
     margin-left: 32%;
     display: flex;
@@ -242,6 +245,7 @@ li{
     justify-content: space-around;
     align-content: flex-end;
     margin: 14px;
+    gap: 26px;
 }
 .notesbody
 {
@@ -325,8 +329,8 @@ li{
         border-radius: 0px 50px 50px 0px;
     }
     .sidebars ul li{
-    margin: 25px 0;
-    padding: 22px 0px 24px 0px;
+        margin: 21px 0;
+        padding: 11px 0px 13px 0px;
     }
     
     .sidebars ul li a{
@@ -467,6 +471,7 @@ li{
     display:flex;
     flex-direction: row;
     width:15rem;
+    gap: 14%;
     height: 20px;
     justify-content: space-between;
   }
@@ -481,6 +486,7 @@ li{
 .collab {
     font-size: 0;
     display: flex;
+    flex-direction: column;
     border-radius: 50%;
     border: 1px solid black;
     width: 26px;
@@ -515,4 +521,37 @@ li{
  
   
 
-  
+  .fa:before {
+    color: grey!important;
+}
+
+.notetnh:hover .colorPopper {
+    visibility: visible;
+}
+
+.colorPopper:hover {
+    visibility: visible;
+}
+
+.paintPallet {
+    position: relative;
+}
+
+.colorPopper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 30vw;
+    border: 1px solid rgb(221, 219, 219);
+    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    /* visibility: hidden; */
+    position: absolute;
+}
+
+.colorCode {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    margin: 5px;
+}

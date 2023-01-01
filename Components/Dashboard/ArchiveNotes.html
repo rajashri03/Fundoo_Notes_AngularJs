@@ -7,7 +7,7 @@
 
 <div ng-controller="fundooappCtrl" ng-init="displayData()" >
     <div class="addednotes row" style="margin-top: 7%;">
-        <div class="notes col-md-3"   ng-repeat="ss in somearray" ng-if="ss.isArchive==true">
+        <div class="notes col-md-3"  style="background-color: {{ss.color}};" ng-repeat="ss in somearray" ng-if="ss.isArchive==true">
             <div>
                 <div ng-click="openModal(ss.noteID,ss.title,ss.note,ss.color,ss.isArchive,ss.isPin)">
                     <div class="notetitle" >
@@ -19,9 +19,11 @@
                     </div>
                     <div>{{ss.note}}</div>
                 </div>
-                <div ng-repeat="cc in collabarray">
+                <div ng-repeat="cc in collabarray" >
                      <div class="collab" >
-                        <p>{{cc.collabEmail}}</p> 
+                        <div>
+                            <p>{{cc.collabEmail}}</p> 
+                        </div>
                         <span class="tooltip-text" id="bottom">{{cc.collabEmail}}</span>
                     </div>
                 </div>
