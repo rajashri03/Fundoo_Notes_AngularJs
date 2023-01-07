@@ -23,6 +23,9 @@ when("/Archive",{
 when("/Trash",{
     templateUrl:"Components/Dashboard/Trash.html"
 }).
+when("/Labels",{
+    templateUrl:"Components/Dashboard/Labels.html"
+}).
 otherwise({
 redirectTo:"/login"
 });

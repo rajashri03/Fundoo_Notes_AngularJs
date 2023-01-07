@@ -45,7 +45,23 @@
                      <i class="fa fa-file-image-o" aria-hidden="true"></i>
                      <i class="fa fa-archive" aria-hidden="true" ng-click="archivedata(ss.noteID)"></i>
                      <i class="fa fa-trash-o" ng-click="Trashdata(ss.noteID)"></i>
-                   
+                     <div class="moreVert">
+                        <img src="../../Images/more.png" style="    height: 20px;
+                        margin-bottom: 13px;" ng-click="popper(ss.noteID)" >
+                      
+                        <div class="popper" ng-show="pop.includes(1)">
+                            <div ng-click="Trashdata(ss.noteID)">
+                                <p>Delete Note</p>
+                            </div>
+                            <div ng-click="addLabel(ss.noteID)">
+                                <p>Add Label</p>
+                            </div>
+                            <p>Add Drawing</p>
+                            <p>Make a copy</p>
+                            <p>Show Checkboxes</p>
+                            <p>Grab image text</p>
+                        </div>
+                    </div>
                       <!-- <img src="../../Images/delete.png" ng-click="Trashdata(ss.noteID)"> -->
                       <!-- <img src="../../Images/more.png" >
                        -->
@@ -53,12 +69,17 @@
               </div>
             </div>
           </div>
+          <div class="label" ng-show="labelView.includes(1)">
+            <p class="labelTitle">Label Note</p>
+            <input class="labelName" ng-model="labelName" type="text" placeholder="Enter label name" />
+            <button class="labelSave" ng-click="setLabel(ss.noteID,labelName)">Save</button>
+        </div>
          </div>
-          
-     </div>
+          </div>
+     
      <br><br>
      <div class="addednotes row">
-            <div class="notes col-md-3" style="background-color: {{ss.color}};"ng-controller="fundooappCtrl"   ng-repeat="ss in somearray" ng-if="ss.isArchive==false&&ss.isTrash==false&&ss.isPin==false">
+            <div class="notes col-md-3" style="background-color: {{ss.color}};" ng-controller="fundooappCtrl"   ng-repeat="ss in somearray" ng-if="ss.isArchive==false&&ss.isTrash==false&&ss.isPin==false">
              <div>
               <div ng-click="openModal(ss.noteID,ss.title,ss.note,ss.color,ss.isArchive,ss.isPin)">
                   <div class="notetitle" >
@@ -72,9 +93,9 @@
               </div>
               
               <div ng-controller="fundooappCtrl"  ng-repeat="cc in collabarray" >
-                <div class="collab"  ng-if="ss.noteID==cc.noteid">
+                <div class="collab" >
                    <div>
-                       <p>{{cc.collabEmail}}</p> 
+                       <p>l{{cc.collabEmail}}</p> 
                    </div>
                    <span class="tooltip-text" id="bottom">{{cc.collabEmail}}</span>
                </div>
@@ -96,7 +117,22 @@
                          <i class="fa fa-file-image-o" aria-hidden="true"></i>
                          <i class="fa fa-archive" aria-hidden="true" ng-click="archivedata(ss.noteID)"></i>
                          <i class="fa fa-trash-o" ng-click="Trashdata(ss.noteID)"></i>
-                       
+                         <div class="moreVert">
+                            <img src="../../Images/more.png" style="    height: 20px;
+                            margin-bottom: 13px;" ng-click="popper(ss.noteID)" >
+                            <div class="popper" ng-show="pop.includes(1)">
+                                <div ng-click="Trashdata(ss.noteID)">
+                                    <p>Delete Note</p>
+                                </div>
+                                <div ng-click="addLabel(ss.noteID)">
+                                    <p>Add Label</p>
+                                </div>
+                                <p>Add Drawing</p>
+                                <p>Make a copy</p>
+                                <p>Show Checkboxes</p>
+                                <p>Grab image text</p>
+                            </div>
+                        </div>
                           <!-- <img src="../../Images/delete.png" ng-click="Trashdata(ss.noteID)"> -->
                           <!-- <img src="../../Images/more.png" >
                            -->
@@ -104,6 +140,12 @@
                   </div>
                 </div>
               </div>
+              <div class="label" ng-show="labelView.includes(1)">
+                <p class="labelTitle">Label Note</p>
+                <input class="labelName" ng-model="labelName" type="text" placeholder="Enter label name" />
+                <button class="labelSave" ng-click="setLabel(ss.noteID,labelName)">Save</button>
+            </div> 
              </div>
-              
-         </div>
+           
+ </div>   
+       

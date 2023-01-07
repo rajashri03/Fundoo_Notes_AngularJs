@@ -16,15 +16,71 @@ app.component('noteList', {
   templateUrl: "Components/Dashboard/addednotes.html",
 });
 
-app.controller("fundooappCtrl", function ($scope, $http) {
+app.controller("fundooappCtrl", function ($scope, $http,$uibModal) {
 
- 
+  $scope.labelView = [0];
+  $scope.collabarray=[];
+
+
+  
   const HeaderConfig = {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token")
     }
   }
    
+
+
+
+  //label
+$scope.pop = [0]
+$scope.popper = function (noteID) {
+    noteToTrash = noteID
+    if ($scope.pop.includes(0)) {
+        $scope.pop = [1];
+    }
+    else {
+        $scope.pop = [0]
+    }
+}; 
+
+$scope.addLabel = function(noteID) {
+  $scope.labelNote = noteID
+  console.log($scope.labelNote);
+  if ($scope.labelView.includes(0)) {
+      $scope.labelView = [1];
+      console.log($scope.labelView)
+  }
+  else {
+      $scope.labelView = [0]
+      
+  }
+  console.log("Labels")
+}
+$scope.setLabel = function (noteID,labelName){
+  
+  var data1 = {
+    labelName: labelName,
+    noteID: noteID
+  }
+  console.log("Setlabel"+name  + $scope.labelNote);
+  $http.post(`https://localhost:44365/api/Label/Add?noteid=${noteID}&labelss=${labelName}`, null, HeaderConfig)
+  .then(function (response)
+  {
+    console.log(response);
+      if (response.data1)
+      {  $scope.allLabels = response.data1.data
+          console.log("label res"+response.data1)
+          window.location.reload();
+          $scope.labelView = [0]
+          $scope.pop = [0]
+          $scope.refreshWindow();
+      }
+      
+  }, function (error){
+      console.log(error)
+  })
+}
   //Collaborator popup  
   $scope.openCollabModal = function (noteid) {
     user = {
@@ -219,29 +275,47 @@ app.controller("fundooappCtrl", function ($scope, $http) {
   vm.doSomething = "";
   $scope.displayData = function () {
 
+    $http.get("https://localhost:44365/api/Label/getByUser", HeaderConfig)
+        .then(function (response){
+            console.log("kk"+response)
+            $scope.allLabels = response.data
+        }, function (error){
+            console.log(error)
+        })
     $http.get("https://localhost:44365/api/Notes/ByUser", HeaderConfig)
       .then(function (response) {
         $scope.somearray = response.data;
        
         console.log(response);
-       // console.log("noteid--" + response.data[0].noteID);
-       for(var i=0;i<$scope.somearray.length;i++)
-        {
-         vm.doSomething = response.data[i].noteID;
+        angular.forEach($scope.somearray, function(id) {
+          console.log(id.noteID)
+          $http.get(`https://localhost:44365/api/Collab/ByNoteId?noteid=${id.noteID}`, HeaderConfig)
+          .then(function (response1) {
+              $scope.collabarray.push(response1.data[0])
+              console.log(response1.data[0])
+          }, function (error)
+          {
+              console.log(error)
+          })
+      });
+      //  // console.log("noteid--" + response.data[0].noteID);
+      //  for(var i=0;i<$scope.somearray.length;i++)
+      //   {
+      //    vm.doSomething = response.data[i].noteID;
         
-        console.log("inside" + vm.doSomething);
+      //   console.log("inside" + vm.doSomething);
       
-      $http.get(`https://localhost:44365/api/Collab/ByNoteId?noteid=${vm.doSomething}`, HeaderConfig)
-      .then(function (response1) {
-        $scope.collabarray =response1.data;
-        console.log(response1);
-        console.log($scope.collabarray);
-        console.log("hiii");
+      // $http.get(`https://localhost:44365/api/Collab/ByNoteId?noteid=${vm.doSomething}`, HeaderConfig)
+      // .then(function (response1) {
+      //   $scope.collabarray =response1.data;
+      //   console.log(response1);
+      //   console.log($scope.collabarray);
+      //   console.log("hiii");
         
-      }, function (error) {
-        console.log(error)
-      })
-    }
+      // }, function (error) {
+      //   console.log(error)
+       //})
+    //}
       }, function (error) {
         console.log(error)
       })
@@ -277,6 +351,9 @@ app.controller("fundooappCtrl", function ($scope, $http) {
         })
         window.location.reload()
 }
+
+
+
   //-----TO add note
   $scope.postNote = function (title, note) {
 

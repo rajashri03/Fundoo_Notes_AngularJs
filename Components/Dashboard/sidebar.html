@@ -1,4 +1,4 @@
-<div class="sidebars" >
+<div class="sidebars" ng-init="displayData()" ng-controller="fundooappCtrl">
    <ul class="navv">
     <li class="activee"><a href="#!Notes">
       <i class="fa fa-lightbulb-o" aria-hidden="true" style="font-size: 29px;" ></i>
@@ -7,6 +7,10 @@
     <li><a href="#">
       <i class="fa fa-bell-o" aria-hidden="true"  style="font-size: 26px;"></i>
     <span>Reminders</span>
+    </a></li>
+    <li ng-repeat="label in allLabels"><a href="#!Labels/" >
+      <i class="fa fa-tag" aria-hidden="true"  style="font-size: 26px;"></i>
+    <span>{{label.labelName}}</span>
     </a></li>
     <li><a href="#!Archive">
       <i class="fa fa-archive" aria-hidden="true"  style="font-size: 26px;"></i>
@@ -18,4 +22,3 @@
     </a></li>
   </ul>
 </div>
-   
