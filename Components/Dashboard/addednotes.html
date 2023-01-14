@@ -7,10 +7,11 @@
 <div ng-controller="fundooappCtrl" ng-init="displayData()" >
    
     <div class="addednotes row" style="background-color: {{ss.color}};">
-        <div class="notes col-md-3" style="background-color: {{ss.color}};"ng-controller="fundooappCtrl"   ng-repeat="ss in somearray" ng-if="ss.isPin==true">
+        <div class="notes col-md-3" style="background-color: {{ss.color}};" ng-controller="fundooappCtrl"   ng-repeat="ss in somearray" ng-if="ss.isPin==true">
          <div>
           <div ng-click="openModal(ss.noteID,ss.title,ss.note,ss.color,ss.isArchive,ss.isPin)">
-              <div class="notetitle" >
+           
+            <div class="notetitle">
                   <h5>{{ss.title}}</h5>
                   <div class="noteimg">
                     <i class="fa fa-thumb-tack" aria-hidden="true" ng-click="pinData(ss.noteID)"   height="22px"></i>
@@ -20,15 +21,25 @@
               <div>{{ss.note}}</div>
           </div>
           
-          <div ng-controller="fundooappCtrl"  ng-repeat="cc in collabarray" >
-            <div class="collab"  ng-if="ss.noteID==cc.noteid">
-               <div>
-                   <p>{{cc.collabEmail}}</p> 
+          <div  style="display: flex;flex-direction: row !important;" >
+            <div  ng-repeat="cl in intrArr" ng-if="ss.noteID==cl.collabb.noteid">
+                <div class="collab">
+                   <div>
+                       <p>{{cl.collabb.collabEmail}}</p> 
+                   </div>
+                   <span class="tooltip-text" id="bottom">{{cl.collabb.collabEmail}}</span>
                </div>
-               <span class="tooltip-text" id="bottom">{{cc.collabEmail}}</span>
+           </div></div>
+           <div style="font-size: 14px;width: fit-content;block-size: fit-content;display:flex;flex-direction: row;gap:8px; ">
+           <div  ng-repeat="lb in labelArr" ng-if="ss.noteID==lb.labelss.noteid" >
+            
+            <div class="closelabel">
+                   <p  style="margin:0px!important">{{lb.labelss.labelName}}<span class="close" ng-click="deletelabelData(lb.labelss.labelName)"">X</span></p> 
+           
+                   <span class="tooltip-text" id="bottom">Remove Label</span>
+                </div>
            </div>
        </div>
-       
           <div>
             <div class="lastDiv" >
                   <div class="allIcons">
@@ -79,7 +90,7 @@
      
      <br><br>
      <div class="addednotes row">
-            <div class="notes col-md-3" style="background-color: {{ss.color}};" ng-controller="fundooappCtrl"   ng-repeat="ss in somearray" ng-if="ss.isArchive==false&&ss.isTrash==false&&ss.isPin==false">
+            <div class="notes col-md-3" style="background-color: {{ss.color}};"  ng-controller="fundooappCtrl"   ng-repeat="ss in somearray" ng-if="ss.isArchive==false&&ss.isTrash==false&&ss.isPin==false">
              <div>
               <div ng-click="openModal(ss.noteID,ss.title,ss.note,ss.color,ss.isArchive,ss.isPin)">
                   <div class="notetitle" >
@@ -92,14 +103,25 @@
                   <div>{{ss.note}}</div>
               </div>
               
-              <div ng-controller="fundooappCtrl"  ng-repeat="cc in collabarray" >
-                <div class="collab" >
-                   <div>
-                       <p>l{{cc.collabEmail}}</p> 
+              <div  style="display: flex;flex-direction: row !important;">
+                <div ng-repeat="cl in intrArr" ng-if="ss.noteID==cl.collabb.noteid" >
+                    {{cc.collab.noteid}}
+                    <div class="collab" >
+                       <div>
+                           <p>{{cl.collabb.collabEmail}}</p> 
+                       </div>
+                       <span class="tooltip-text" id="bottom">{{cl.collabb.collabEmail}}</span>
                    </div>
-                   <span class="tooltip-text" id="bottom">{{cc.collabEmail}}</span>
+               </div>
+               <div ng-repeat="lb in labelArr" ng-if="ss.noteID==lb.labelss.noteid" >
+            
+                <div>
+                       <p>f{{lb.labelss.labelName}}</p> 
+                
                </div>
            </div>
+            
+            </div>
            
               <div>
                 <div class="lastDiv" >

@@ -16,71 +16,69 @@ app.component('noteList', {
   templateUrl: "Components/Dashboard/addednotes.html",
 });
 
-app.controller("fundooappCtrl", function ($scope, $http,$uibModal) {
+app.controller("fundooappCtrl", function ($scope, $http, $uibModal) {
 
   $scope.labelView = [0];
-  $scope.collabarray=[];
+  $scope.collabarray = [];
 
+  $scope.labelarray=[];
+  $scope.notesdata = [];
 
-  
   const HeaderConfig = {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token")
     }
   }
-   
+
 
 
 
   //label
-$scope.pop = [0]
-$scope.popper = function (noteID) {
+  $scope.pop = [0]
+  $scope.popper = function (noteID) {
     noteToTrash = noteID
     if ($scope.pop.includes(0)) {
-        $scope.pop = [1];
+      $scope.pop = [1];
     }
     else {
-        $scope.pop = [0]
+      $scope.pop = [0]
     }
-}; 
+  };
 
-$scope.addLabel = function(noteID) {
-  $scope.labelNote = noteID
-  console.log($scope.labelNote);
-  if ($scope.labelView.includes(0)) {
+  $scope.addLabel = function (noteID) {
+    $scope.labelNote = noteID
+    console.log($scope.labelNote);
+    if ($scope.labelView.includes(0)) {
       $scope.labelView = [1];
       console.log($scope.labelView)
-  }
-  else {
+    }
+    else {
       $scope.labelView = [0]
-      
+
+    }
+    console.log("Labels")
   }
-  console.log("Labels")
-}
-$scope.setLabel = function (noteID,labelName){
-  
-  var data1 = {
-    labelName: labelName,
-    noteID: noteID
-  }
-  console.log("Setlabel"+name  + $scope.labelNote);
-  $http.post(`https://localhost:44365/api/Label/Add?noteid=${noteID}&labelss=${labelName}`, null, HeaderConfig)
-  .then(function (response)
-  {
-    console.log(response);
-      if (response.data1)
-      {  $scope.allLabels = response.data1.data
-          console.log("label res"+response.data1)
+  $scope.setLabel = function (noteID, labelName) {
+
+    var data1 = {
+      labelName: labelName,
+      noteID: noteID
+    }
+    $http.post(`https://localhost:44365/api/Label/Add?noteid=${noteID}&labelss=${labelName}`, null, HeaderConfig)
+      .then(function (response) {
+        console.log(response);
+        if (response.data1) {
+          $scope.allLabels = response.data1.data
+          console.log("label res" + response.data1)
           window.location.reload();
           $scope.labelView = [0]
           $scope.pop = [0]
-          $scope.refreshWindow();
-      }
-      
-  }, function (error){
-      console.log(error)
-  })
-}
+        }
+
+      }, function (error) {
+        console.log(error)
+      })
+  }
   //Collaborator popup  
   $scope.openCollabModal = function (noteid) {
     user = {
@@ -224,7 +222,7 @@ $scope.setLabel = function (noteID,labelName){
   };
 
 
-  //For Delete
+  //For Delete Note
   $scope.deleteData = function (noteID) {
     var datanote = {
       noteID: noteID
@@ -232,6 +230,25 @@ $scope.setLabel = function (noteID,labelName){
     $scope.noteID = noteID;
     console.log($scope.noteID);
     $http.delete(`https://localhost:44365/api/Notes/Remove?noteid=${noteID}`, HeaderConfig)
+      .then(function (response) {
+        //$scope.somearray=response.data;
+        console.log(response);
+        //console.log($scope.somearray.data);
+        window.location.reload();
+      }, function (error) {
+        console.log(error)
+      })
+  };
+
+
+  //For Delete label
+  $scope.deletelabelData = function (labelname) {
+    var datanote = {
+      labelname: labelname
+    }
+    $scope.labelname = labelname;
+    console.log($scope.labelname);
+    $http.delete(`https://localhost:44365/api/Label/Remove?lableName=${labelname}`, HeaderConfig)
       .then(function (response) {
         //$scope.somearray=response.data;
         console.log(response);
@@ -276,46 +293,72 @@ $scope.setLabel = function (noteID,labelName){
   $scope.displayData = function () {
 
     $http.get("https://localhost:44365/api/Label/getByUser", HeaderConfig)
-        .then(function (response){
-            console.log("kk"+response)
-            $scope.allLabels = response.data
-        }, function (error){
-            console.log(error)
-        })
+      .then(function (response) {
+        console.log("kk" + response)
+        $scope.allLabels = response.data
+      }, function (error) {
+        console.log(error)
+      })
+
+
+    // })
     $http.get("https://localhost:44365/api/Notes/ByUser", HeaderConfig)
       .then(function (response) {
         $scope.somearray = response.data;
-       
+
         console.log(response);
-        angular.forEach($scope.somearray, function(id) {
-          console.log(id.noteID)
-          $http.get(`https://localhost:44365/api/Collab/ByNoteId?noteid=${id.noteID}`, HeaderConfig)
-          .then(function (response1) {
-              $scope.collabarray.push(response1.data[0])
-              console.log(response1.data[0])
-          }, function (error)
-          {
-              console.log(error)
-          })
-      });
-      //  // console.log("noteid--" + response.data[0].noteID);
-      //  for(var i=0;i<$scope.somearray.length;i++)
-      //   {
-      //    vm.doSomething = response.data[i].noteID;
-        
-      //   console.log("inside" + vm.doSomething);
-      
-      // $http.get(`https://localhost:44365/api/Collab/ByNoteId?noteid=${vm.doSomething}`, HeaderConfig)
-      // .then(function (response1) {
-      //   $scope.collabarray =response1.data;
-      //   console.log(response1);
-      //   console.log($scope.collabarray);
-      //   console.log("hiii");
-        
-      // }, function (error) {
-      //   console.log(error)
-       //})
-    //}
+        //Getting all collab data and notes but retriving only collab data
+        $http.get("https://localhost:44365/api/Notes/GetAll", HeaderConfig)
+          .then(function (response) {
+            $scope.somearray1 = response.data.response
+            // angular.forEach($scope.somearray, function()
+            //{
+              console.log( $scope.somearray1)
+            for (var i = 0; i < $scope.somearray1.length; i++) {
+              // $scope.notesdata.push({"cc":(response.data.response[i].cc)},{"collab":(response.data.response[i].address)})
+              $scope.collabarray.push(response.data.response[i].address)
+              }
+            console.log($scope.notesdata)
+            $scope.intrArr = mapImageAndName();
+            function mapImageAndName() {
+              var mappedArr = [];
+              for (var i = 0; i < $scope.somearray1.length; i++) {
+                mappedArr.push({
+                  'collabb': $scope.collabarray[i],
+                  // 'nn': $scope.notesdata[i]
+                });
+              }
+              return mappedArr;
+            }
+            
+          });
+
+
+          //labels
+          $http.get("https://localhost:44365/api/Notes/GetAllLabels", HeaderConfig)
+          .then(function (response) {
+            $scope.somearray1 = response.data.response
+            // angular.forEach($scope.somearray, function()
+            //{
+              //console.log( $scope.somearray1)
+            for (var i = 0; i < $scope.somearray1.length; i++) {
+              // $scope.notesdata.push({"cc":(response.data.response[i].cc)},{"collab":(response.data.response[i].address)})
+              $scope.labelarray.push(response.data.response[i].labeladdress)
+              }
+           // console.log($scope.labelarray)
+            $scope.labelArr = maplabel();
+            function maplabel() {
+              var mappedlabelArr = [];
+              for (var i = 0; i < $scope.somearray1.length; i++) {
+                mappedlabelArr.push({
+                  'labelss': $scope.labelarray[i],
+                  // 'nn': $scope.notesdata[i]
+                });
+              }
+              return mappedlabelArr;
+            }
+            console.log( $scope.labelArr)
+          });
       }, function (error) {
         console.log(error)
       })
@@ -330,27 +373,27 @@ $scope.setLabel = function (noteID,labelName){
     $scope.showButtons = [1];
   };
 
-  $scope.colorArray = ["LightSalmon","Pink","PapayaWhip","Khaki","Lavender","Thistle","GreenYellow","Aquamarine","BlanchedAlmond","Gainsboro","AliceBlue"]
+  $scope.colorArray = ["LightSalmon", "Pink", "PapayaWhip", "Khaki", "Lavender", "Thistle", "GreenYellow", "Aquamarine", "BlanchedAlmond", "Gainsboro", "AliceBlue"]
   $scope.colorPop = [0]
   $scope.colorPopup = function () {
     console.log("Color");
-      if ($scope.colorPop.includes(0)) {
-          $scope.colorPop = [1];
-      }
-      else {
-          $scope.colorPop = [0]
-      }
+    if ($scope.colorPop.includes(0)) {
+      $scope.colorPop = [1];
+    }
+    else {
+      $scope.colorPop = [0]
+    }
   };
-  $scope.changeColor = function (noteID, color){
+  $scope.changeColor = function (noteID, color) {
     console.log(color)
     $http.put(`https://localhost:44365/api/Notes/Color?noteid=${noteID}&color=${color}`, null, HeaderConfig)
-        .then(function (response) {
-            console.log(response)
-        }, function (error) {
-            console.log(error)
-        })
-        window.location.reload()
-}
+      .then(function (response) {
+        console.log(response)
+      }, function (error) {
+        console.log(error)
+      })
+    window.location.reload()
+  }
 
 
 
